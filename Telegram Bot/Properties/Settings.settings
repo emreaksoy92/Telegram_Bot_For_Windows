@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Telegram_Bot" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Token" Type="System.String" Scope="User">
+      <Value Profile="(Default)">217303437:AAE1EkoKA7MTLEsfADmZdt6ZqLNoMJosJ80</Value>
+    </Setting>
+    <Setting Name="GoogleToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AIzaSyAKzg9fkDduth_nAwPOfgmzFn5A6FQnUsw</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
