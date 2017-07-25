@@ -17,22 +17,7 @@ namespace Telegram_Bot
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());           
-            //m.GetME();
-
-            //string loc = Console.ReadLine();         
-
-            //while (loc == "location")
-            //{
-            //    Console.WriteLine("Please type in the location you want to go: ");
-            //    string adress = Console.ReadLine();
-            //    ga.GetUpdates(adress);              
-            //}
-            //string message;
-
-            //message = Console.ReadLine();
-            //m.SendMessage(message, ChatID);
-            //Console.ReadLine();
+            Application.Run(new Form1());                    
 
         }
 

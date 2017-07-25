@@ -9,7 +9,8 @@ using Telegram_Bot.SimpleJSON;
 using System.Collections.Specialized;
 using System.Net.Http;
 using System.IO;
-
+using System.Windows.Forms;
+using System.Threading;
 
 namespace Telegram_Bot
 {
@@ -1545,19 +1546,16 @@ namespace Telegram_Bot
                             #region SWITCH
                             switch (_type)
                             {
-                                
+
                                 case "text":
                                     {
                                         try
                                         {
-                                            MessageText.Method.Name.ToString();
-                                            //Notification();
-                                            //Console.WriteLine("Recieved a text message");
-                                            //Notification(false);                                            
-                                            
+                                            MessageText.Method.Name.ToString();                                   
                                         }
                                         catch (Exception)
                                         { break; }
+
                                         GetMessageText(r);
                                         break;
                                     }
@@ -1566,9 +1564,6 @@ namespace Telegram_Bot
                                         try
                                         {
                                             MessageText.Method.Name.ToString();
-                                            Notification();
-                                            Console.WriteLine("Recieved a sticker");
-                                            Notification(false);
                                         }
                                         catch (Exception)
                                         { break; }
@@ -1580,9 +1575,6 @@ namespace Telegram_Bot
                                         try
                                         {
                                             MessageText.Method.Name.ToString();
-                                            Notification();
-                                            Console.WriteLine("Recieved a photo");
-                                            Notification(false);
                                         }
                                         catch (Exception)
                                         { break; }
@@ -1594,9 +1586,6 @@ namespace Telegram_Bot
                                         try
                                         {
                                             MessageText.Method.Name.ToString();
-                                            Notification();
-                                            Console.WriteLine("Recieved a video");
-                                            Notification(false);
                                         }
                                         catch (Exception)
                                         { break; }
@@ -1608,9 +1597,6 @@ namespace Telegram_Bot
                                         try
                                         {
                                             MessageText.Method.Name.ToString();
-                                            Notification();
-                                            Console.WriteLine("Recieved a document");
-                                            Notification(false);
                                         }
                                         catch (Exception)
                                         { break; }
@@ -1622,9 +1608,6 @@ namespace Telegram_Bot
                                         try
                                         {
                                             MessageText.Method.Name.ToString();
-                                            Notification();
-                                            Console.WriteLine("Recieved a location");
-                                            Notification(false);
                                         }
                                         catch (Exception)
                                         { break; }
@@ -1636,9 +1619,6 @@ namespace Telegram_Bot
                                         try
                                         {
                                             MessageText.Method.Name.ToString();
-                                            Notification();
-                                            Console.WriteLine("Recieved a contact");
-                                            Notification(false);
                                         }
                                         catch (Exception)
                                         { break; }
@@ -1650,9 +1630,6 @@ namespace Telegram_Bot
                                         try
                                         {
                                             MessageText.Method.Name.ToString();
-                                            Notification();
-                                            Console.WriteLine("Recieved a voice");
-                                            Notification(false);
                                         }
                                         catch (Exception)
                                         { break; }
@@ -1661,8 +1638,10 @@ namespace Telegram_Bot
                                     }
                             }
                             #endregion
-                        }
+                        }                      
                     }
+                    //MethodInvoker mi = delegate () { this.Text = DateTime.Now.ToString(); };
+                    //this.Invoke(mi);
                 }
             }
 
