@@ -1398,6 +1398,7 @@ namespace Telegram_Bot
         public delegate void ResponseLocation(object sendr, MessageLocation e);
         public delegate void ResponseContact(object sendr, MessageContact e);
         public delegate void ResponseVoice(object sendr, MessageVoice e);
+        public delegate void SetText(string text);
         #endregion
         #region Classes
         public class MessageText : EventArgs
@@ -1928,7 +1929,8 @@ namespace Telegram_Bot
                 message.file_size = r["message"]["voice"]["file_size"].AsInt;
                 //Event
                 MessageVoice(this, message);
-            }            
+            }
+            
             #endregion
 
         }

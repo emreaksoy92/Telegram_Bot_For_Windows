@@ -13,9 +13,10 @@ namespace Telegram_Bot
 {
     public partial class Form1 : Form
     {
-        //int ChatID = -8513858;
-        int ChatID = 58811658;
+        int ChatID = -8513858;
+        //int ChatID = 58811658;
 
+        delegate void SetTextCallBack(string text);
         TelegramRequest Tr = new TelegramRequest(Properties.Settings.Default.Token);
         Method m = new Method(Properties.Settings.Default.Token);
 
@@ -37,8 +38,31 @@ namespace Telegram_Bot
             {
                 //Console.WriteLine("Message ID: {0} \n Message From ID={1} \n Username={2} \n First Name={3} \n Last Name={4} \n Date={5} \n Text={6}",
                 //    e.message_id, e.from.id, e.from.username, e.from.first_name, e.from.last_name, e.date, e.text);
+                if (e.text.StartsWith("/location") == true) ;
+                {
+                    string adress = e.text.ToString();
+                    adress.Split(' ');
+                    GoogleSigned.AssignAllServices(new GoogleSigned(Properties.Settings.Default.GoogleToken));
 
-                txt_messageRecieved.Text = e.text.ToString();
+                    var request = new GeocodingRequest
+                    {
+                        Address = adress,
+                        Sensor = false
+                    };
+                    System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+                    customCulture.NumberFormat.NumberDecimalSeparator = ".";
+                    System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+                    var response = new GeocodingService().GetResponse(request);
+                    var result = response.Results.First();
+                    float log = Convert.ToSingle(result.Geometry.Location.Longitude);
+                    float lan = Convert.ToSingle(result.Geometry.Location.Latitude);
+                    txtLan.Text = lan.ToString();
+                    txtLon.Text = log.ToString();
+
+                    m.SendLocation(ChatID, lan, log);
+                }
+
+                SetText(e.text.ToString());
                 
             }
             void Tr_MessageSticker(object sendr, MessageSticker e)
@@ -178,10 +202,22 @@ namespace Telegram_Bot
         {
             while (true)
             {
-                //you need to use Invoke because the new thread can't access the UI elements directly
                 Tr.GetUpdates();
                 MethodInvoker mi = delegate () { this.Text = DateTime.Now.ToString(); };
                 this.Invoke(mi);
+            }
+        }
+
+        private void SetText(string text)
+        {        
+            if (this.txt_messageRecieved.InvokeRequired)
+            {
+                SetTextCallBack d = new SetTextCallBack(SetText);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.txt_messageRecieved.Text = text;
             }
         }
     }
