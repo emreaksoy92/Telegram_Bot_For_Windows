@@ -57,9 +57,9 @@
             // 
             // txt_messageRecieved
             // 
-            this.txt_messageRecieved.Enabled = false;
             this.txt_messageRecieved.Location = new System.Drawing.Point(12, 18);
             this.txt_messageRecieved.Name = "txt_messageRecieved";
+            this.txt_messageRecieved.ReadOnly = true;
             this.txt_messageRecieved.Size = new System.Drawing.Size(279, 235);
             this.txt_messageRecieved.TabIndex = 13;
             this.txt_messageRecieved.Text = "";
@@ -186,7 +186,7 @@
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
             this.btnClear.TabIndex = 28;
-            this.btnClear.Text = "clear";
+            this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
@@ -223,7 +223,7 @@
             this.btnSendLocation.Name = "btnSendLocation";
             this.btnSendLocation.Size = new System.Drawing.Size(75, 23);
             this.btnSendLocation.TabIndex = 21;
-            this.btnSendLocation.Text = "location";
+            this.btnSendLocation.Text = "Send";
             this.btnSendLocation.UseVisualStyleBackColor = true;
             this.btnSendLocation.Click += new System.EventHandler(this.btnSendLocation_Click);
             // 

@@ -13,10 +13,11 @@ namespace Telegram_Bot
 {
     public partial class Form1 : Form
     {
-        int ChatID = -8513858;
-        //int ChatID = 58811658;
+        //int ChatID = -8513858;
+        //int ChatID = -161368305;
+        int ChatID = 58811658;
 
-        delegate void SetTextCallBack(string text);
+        delegate void SetTextCallBack(string text, string username);
         TelegramRequest Tr = new TelegramRequest(Properties.Settings.Default.Token);
         Method m = new Method(Properties.Settings.Default.Token);
 
@@ -31,14 +32,13 @@ namespace Telegram_Bot
             Tr.MessageLocation += Tr_MessageLocation;
             Tr.MessageContact += Tr_MessageContact;
             Tr.MessageVoice += Tr_MessageVoice;
-            //Tr.GetUpdates();
 
 
             void Tr_MessageText(object sendr, MessageText e)
             {
-                //Console.WriteLine("Message ID: {0} \n Message From ID={1} \n Username={2} \n First Name={3} \n Last Name={4} \n Date={5} \n Text={6}",
-                //    e.message_id, e.from.id, e.from.username, e.from.first_name, e.from.last_name, e.date, e.text);
-                if (e.text.StartsWith("/location") == true) ;
+                Console.WriteLine("Message ID: {0} \n Message From ID={1} \n Username={2} \n First Name={3} \n Last Name={4} \n Date={5} \n Text={6}",
+                    e.message_id, e.from.id, e.from.username, e.from.first_name, e.from.last_name, e.date, e.text);
+                if (e.text.StartsWith("/location") == true)
                 {
                     string adress = e.text.ToString();
                     adress.Split(' ');
@@ -62,15 +62,15 @@ namespace Telegram_Bot
                     m.SendLocation(ChatID, lan, log);
                 }
 
-                SetText(e.text.ToString());
-                
+                SetText(e.text.ToString(), e.from.username.ToString());
+
             }
             void Tr_MessageSticker(object sendr, MessageSticker e)
             {
 
                 //Console.WriteLine("Message ID: {0} \n Message From ID={1} \n Username={2} \n First Name={3} \n Last Name={4} \n Date={5} \n Width:{6}  \n Height:{7}\n Emoji:{8} \n Thumb File ID:{9} \n Thumb File Size:{10} \n Thumb Width:{11} \n Thumb Height:{12} \n File ID:{13} \n File Size:{14}",
                 //    e.message_id, e.from.id, e.from.username, e.from.first_name, e.from.last_name, e.date, e.width, e.height, e.emoji, e.thumb.file_id, e.thumb.file_size, e.thumb.width, e.thumb.height, e.file_id, e.file_size);
-                txt_messageRecieved.Text = e.emoji.ToString();
+               SetText(e.emoji.ToString(), e.from.username.ToString());
             }
             void Tr_MessagePhoto(object sendr, MessagePhoto e)
             {
@@ -128,6 +128,7 @@ namespace Telegram_Bot
             string message = txtSend.Text;
             m.SendMessage(message, ChatID);
             txtSend.Text = "";
+            txt_messageRecieved.Text = txt_messageRecieved.Text.Insert(0, DateTime.Now + ": Bot" + ": " + message + "\n");
         }
 
         private void btnSendPic_Click(object sender, EventArgs e)
@@ -208,16 +209,16 @@ namespace Telegram_Bot
             }
         }
 
-        private void SetText(string text)
+        private void SetText(string text, string username)
         {        
             if (this.txt_messageRecieved.InvokeRequired)
             {
                 SetTextCallBack d = new SetTextCallBack(SetText);
-                this.Invoke(d, new object[] { text });
+                this.Invoke(d, new object[] { text, username});
             }
             else
             {
-                this.txt_messageRecieved.Text = text;
+                this.txt_messageRecieved.Text = txt_messageRecieved.Text.Insert(0, DateTime.Now + ": " + username + ": " + text + "\n");
             }
         }
     }
